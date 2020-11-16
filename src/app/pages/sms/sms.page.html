@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>SMS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-button (click)="start()">
+    start
+  </ion-button>
+
+  <ion-button (click)="stop()">
+    stop
+  </ion-button>
+
+  <div class="ion-padding">
+
+    <ion-list lines="full">
+
+
+      <ion-item>
+        <ion-label>Mobile No {{mobNo}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Text : {{txt}}</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <!-- <table>
+      <tr>
+        <td>Mobile No</td>
+        <td>MSG</td>
+      </tr>
+      <tr>
+        <td>{{mobNo}}</td>
+        <td>{{txt}}</td>
+      </tr>
+    </table> -->
+  </div>
+
+
+</ion-content>
