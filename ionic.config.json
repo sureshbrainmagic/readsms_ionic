@@ -1,0 +1,7 @@
+{
+  "name": "readsms",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
