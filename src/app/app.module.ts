@@ -11,6 +11,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { SMS } from '@ionic-native/sms/ngx';
 import { FormsModule } from '@angular/forms';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     SplashScreen,
     // SmsRetriever,
     AndroidPermissions,
+    LocalNotifications,
     SMS,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

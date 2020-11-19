@@ -13,16 +13,18 @@ export class SmsPage implements OnInit {
   mobNo: string = '';
   txt = '';
   orgMobNo;
+  isSMS: boolean = true;
   constructor(
     private alert: AlertFnService,
     private toastfn: ToastService
   ) { }
 
   ngOnInit() {
-    this.start();
+    // this.start();
   }
 
   start() {
+    this.isSMS = false;
     SMSReceive.startWatch(
       () => {
         console.log('watch started');
@@ -42,9 +44,10 @@ export class SmsPage implements OnInit {
           this.toastfn.toastFn(`You have received new sms from ${sms.address}`);
           this.alert.msgAlertFn(`Mobile : ${sms.address}, content : ${sms.body}`);
 
+          this.getMobileNo(sms);
           // console.log(sms);
-          this.orgMobNo = this.getMobileNo(sms.address);
-          this.txt = sms.body;
+          // this.orgMobNo = this.getMobileNo(sms.address);
+          // this.txt = sms.body;
           // console.log(this.mobNo);
           // console.log(JSON.stringify(e.data, null, '\t'));
           // this.stop();
@@ -63,13 +66,11 @@ export class SmsPage implements OnInit {
   }
 
 
-  getMobileNo(num) {
-    if (num.includes('+91')) {
-      // console.log('yes', num);
-      const mechanicNumber = num.substring(3);
-      return mechanicNumber;
-      // this.orgMobNo = mechanicNumber;
-      // console.log(mechanicNumber);
+  getMobileNo(obj) {
+    if (obj.address.includes('+91')) {
+      const mechanicNumber = obj.address.substring(3);
+      this.orgMobNo = mechanicNumber;
+      this.txt = obj.body;
     }
   }
 
