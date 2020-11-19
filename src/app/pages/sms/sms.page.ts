@@ -1,6 +1,7 @@
 import { ToastService } from './../../services/toast/toast.service';
 import { AlertFnService } from './../../services/alert/alert-fn.service';
 import { Component, OnInit } from '@angular/core';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 declare var SMSReceive: any;
 
 @Component({
@@ -16,11 +17,32 @@ export class SmsPage implements OnInit {
   isSMS: boolean = true;
   constructor(
     private alert: AlertFnService,
-    private toastfn: ToastService
+    private toastfn: ToastService,
+    private androidPermissions: AndroidPermissions
   ) { }
 
   ngOnInit() {
     // this.start();
+  }
+
+  ionViewDidEnter() {
+    this.getSMSReadWritePermission();
+  }
+
+  getSMSReadWritePermission() {
+    console.log('permission');
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.READ_SMS).then(
+      success => console.log('Permission granted'),
+      err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.READ_SMS)
+    );
+    this.androidPermissions.requestPermissions(
+      [
+        this.androidPermissions.PERMISSION.READ_SMS,
+        // this.androidPermissions.PERMISSION.VIEW_SMS
+      ]
+      );
+
+
   }
 
   start() {
@@ -38,19 +60,10 @@ export class SmsPage implements OnInit {
           // alert(this.mobNo);
           // alert(this.txt);
           // this.assignValue(e.data);
-
           const sms: any = e.data;
-
           this.toastfn.toastFn(`You have received new sms from ${sms.address}`);
           this.alert.msgAlertFn(`Mobile : ${sms.address}, content : ${sms.body}`);
-
           this.getMobileNo(sms);
-          // console.log(sms);
-          // this.orgMobNo = this.getMobileNo(sms.address);
-          // this.txt = sms.body;
-          // console.log(this.mobNo);
-          // console.log(JSON.stringify(e.data, null, '\t'));
-          // this.stop();
         });
       },
       () => { console.log('watch start failed'); }
