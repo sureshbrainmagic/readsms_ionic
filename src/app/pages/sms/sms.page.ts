@@ -1,3 +1,5 @@
+import { LoaderService } from './../../services/loader/loader.service';
+import { ConfigService } from './../../services/config/config.service';
 import { ToastService } from './../../services/toast/toast.service';
 import { AlertFnService } from './../../services/alert/alert-fn.service';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +20,9 @@ export class SmsPage implements OnInit {
   constructor(
     private alert: AlertFnService,
     private toastfn: ToastService,
-    private androidPermissions: AndroidPermissions
+    private androidPermissions: AndroidPermissions,
+    private config: ConfigService,
+    private loader: LoaderService
   ) { }
 
   ngOnInit() {
@@ -40,7 +44,7 @@ export class SmsPage implements OnInit {
         this.androidPermissions.PERMISSION.READ_SMS,
         // this.androidPermissions.PERMISSION.VIEW_SMS
       ]
-      );
+    );
 
 
   }
@@ -84,7 +88,24 @@ export class SmsPage implements OnInit {
       const mechanicNumber = obj.address.substring(3);
       this.orgMobNo = mechanicNumber;
       this.txt = obj.body;
+      this.sendSMS();
     }
+  }
+
+  sendSMS() {
+    this.loader.present(`Please Wait ...`);
+    const values = {
+      "smsContent": this.txt,
+      "mobileNo": this.orgMobNo,
+    };
+    this.config.postData(`api/Loyalty_Gates/addCouponCode`, values).subscribe(res => {
+      console.log(res);
+      const response: any = res;
+      this.loader.dismiss();
+    }, error => {
+      console.log(error);
+      this.loader.dismiss();
+    });
   }
 
 }
