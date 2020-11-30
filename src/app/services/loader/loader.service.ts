@@ -14,11 +14,11 @@ export class LoaderService {
   async present(msg) {
     this.isLoading = true;
     return await this.loadingCtrl.create({
-      spinner: null,
-      message : `bubbles`,
+      spinner: 'bubbles',
+      message : `Send SMS to Server ...`,
       // message: msg,
       //  message : `<img src="assets/loading.gif" class="img-align" /> <br/> <div class='ion-text-center'>${msg}</div> `,
-      // spinner: spin,  // "bubbles" | "circles" | "circular" | "crescent" | "dots" | "lines" | "lines-small" | null | undefined
+      // spinner: "bubbles",  // "bubbles" | "circles" | "circular" | "crescent" | "dots" | "lines" | "lines-small" | null | undefined
       // cssClass: 'my-custom-class',   // Write CSS in global.css
       // mode : 'ios',
       // duration: 20000,
