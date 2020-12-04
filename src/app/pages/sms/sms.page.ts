@@ -56,20 +56,20 @@ export class SmsPage implements OnInit {
         console.log('watch started');
         document.addEventListener('onSMSArrive', (e: any) => {
           console.log('onSMSArrive()');
-          // console.log(e);
-          // this.mobNo = e.data.address;
-          // this.txt = e.data.body;
-          // console.log(this.mobNo);
-          // console.log(this.txt);
-          // alert(this.mobNo);
-          // alert(this.txt);
-          // this.assignValue(e.data);
           const sms: any = e.data;
-          document.getElementById('mobNo').innerHTML = sms.address;
-          document.getElementById('smsContent').innerHTML = sms.body;
-          this.toastfn.toastFn(`You have received new sms from ${sms.address}`);
+          console.log(sms);
+          if (sms.address.includes('+91')) {
+            const mechanicNumber = sms.address.substring(3);
+            console.log(mechanicNumber);
+            document.getElementById('mobNo').innerHTML = mechanicNumber;
+            document.getElementById('smsContent').innerHTML = sms.body;
+            this.toastfn.toastFn(`You have received new sms from ${sms.address}`, 'middle');
+            this.sendSMS(sms.body, mechanicNumber);
+          } else {
+            console.log('Company SMS');
+          }
           // this.alert.msgAlertFn(`Mobile : ${sms.address}, content : ${sms.body}`);
-          this.getMobileNo(sms);
+          // this.getMobileNo(sms);
         });
       },
       () => { console.log('watch start failed'); }
@@ -85,24 +85,27 @@ export class SmsPage implements OnInit {
   }
 
 
-  getMobileNo(obj) {
-    if (obj.address.includes('+91')) {
-      const mechanicNumber = obj.address.substring(3);
-      this.orgMobNo = mechanicNumber;
-      this.txt = obj.body;
-      this.sendSMS();
-    }
-  }
+  // getMobileNo(obj) {
+  //   if (obj.address.includes('+91')) {
+  //     const mechanicNumber = obj.address.substring(3);
+  //     this.orgMobNo = mechanicNumber;
+  //     this.txt = obj.body;
+  //     this.sendSMS();
+  //   }
+  // }
 
-  sendSMS() {
+  sendSMS(smscontent, mobileNo) {
     this.loader.present(`Please Wait ...`);
     const values = {
-      "smsContent": this.txt,
-      "mobileNo": this.orgMobNo,
+      "smsContent": smscontent, // this.txt,
+      "mobileNo": mobileNo // this.orgMobNo,
     };
     this.config.postData(`api/Loyalty_Gates/addCouponCode`, values).subscribe(res => {
       console.log(res);
       const response: any = res;
+      if (response.result === 'Success') {
+        this.loader.dismiss();
+      }
       this.loader.dismiss();
     }, error => {
       console.log(error);

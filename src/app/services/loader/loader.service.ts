@@ -21,7 +21,7 @@ export class LoaderService {
       // spinner: "bubbles",  // "bubbles" | "circles" | "circular" | "crescent" | "dots" | "lines" | "lines-small" | null | undefined
       // cssClass: 'my-custom-class',   // Write CSS in global.css
       // mode : 'ios',
-      duration: 10000,
+      duration: 20000,
     }).then(a => {
       a.present().then(() => {
         console.log('presented');
