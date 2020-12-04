@@ -65,8 +65,10 @@ export class SmsPage implements OnInit {
           // alert(this.txt);
           // this.assignValue(e.data);
           const sms: any = e.data;
+          document.getElementById('mobNo').innerHTML = sms.address;
+          document.getElementById('smsContent').innerHTML = sms.body;
           this.toastfn.toastFn(`You have received new sms from ${sms.address}`);
-          this.alert.msgAlertFn(`Mobile : ${sms.address}, content : ${sms.body}`);
+          // this.alert.msgAlertFn(`Mobile : ${sms.address}, content : ${sms.body}`);
           this.getMobileNo(sms);
         });
       },

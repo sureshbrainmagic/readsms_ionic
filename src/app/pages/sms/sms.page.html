@@ -6,10 +6,17 @@
 
 <ion-content>
 
-  <ion-button (click)="start()" expand="full" *ngIf="isSMS">
-    Allow Access to read SMS
-  </ion-button>
+  <div class="divCenter">
+    <ion-button (click)="start()"  *ngIf="isSMS">
+      Allow Access to read SMS
+    </ion-button>
+  </div>
+
   <div class="ion-padding">
-    {{orgMobNo}}<br><br>{{txt}}
+
+    <p id="mobNo"></p>
+    <p id="smsContent"></p>
+
+    <!-- {{orgMobNo}}<br><br>{{txt}} -->
   </div>
 </ion-content>

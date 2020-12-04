@@ -7,36 +7,39 @@ export class AlertFnService {
 
   constructor(
     private alertController: AlertController,
-    ) { }
+  ) { }
 
-    // async existingUser(msg) {
-    //   const alert = await this.alertController.create({
-    //     header: 'Alert',
-    //     message: msg,
-    //     buttons: [
-    //       {
-    //         text: 'Okay',
-    //         role: 'cancel',
-    //         handler: () => {
-    //           console.log('Confirm Cancel: blah');
-    //         }
-    //       },
-    //       //  {
-    //       //   text: 'Okay',
-    //       //   handler: () => {
-    //       //     localStorage.clear();
-    //       //     this.storage.clear().then(() => {
-    //       //       console.log('all keys are cleared');
-    //       //     });
-    //       //     this.router.navigateByUrl('/login');
-    //       //     console.log('Confirm Okay');
-    //       //   }
-    //       // }
-    //     ]
-    //   });
-    //   await alert.present();
-    // }
+  // async existingUser(msg) {
+  //   const alert = await this.alertController.create({
+  //     header: 'Alert',
+  //     message: msg,
+  //     buttons: [
+  //       {
+  //         text: 'Okay',
+  //         role: 'cancel',
+  //         handler: () => {
+  //           console.log('Confirm Cancel: blah');
+  //         }
+  //       },
+  //       //  {
+  //       //   text: 'Okay',
+  //       //   handler: () => {
+  //       //     localStorage.clear();
+  //       //     this.storage.clear().then(() => {
+  //       //       console.log('all keys are cleared');
+  //       //     });
+  //       //     this.router.navigateByUrl('/login');
+  //       //     console.log('Confirm Okay');
+  //       //   }
+  //       // }
+  //     ]
+  //   });
+  //   await alert.present();
+  // }
 
+  dismissAlert() {
+    this.alertController.dismiss();
+  }
 
   async msgAlertFn(msg) {
     const alert = await this.alertController.create({
@@ -64,6 +67,11 @@ export class AlertFnService {
       ]
     });
     await alert.present();
+
+    // setTimeout(() => {
+    //   this.alertController.dismiss();
+    // }, 2000);
+
   }
 
 }
