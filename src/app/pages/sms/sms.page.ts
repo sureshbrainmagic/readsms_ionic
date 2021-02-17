@@ -65,7 +65,7 @@ export class SmsPage implements OnInit {
             document.getElementById('smsContent').innerHTML = sms.body;
             this.toastfn.toastFn(`You have received new sms from ${sms.address}`, 'middle');
 
-            if (sms.body.includes('gates') || sms.body.includes('Gates')) {
+            if (sms.body.includes('gates') || sms.body.includes('Gates') || sms.body.includes('GATES') || sms.body.includes('गेट्स') ) {
               this.sendSMS(sms.body, mechanicNumber);
             }
 
